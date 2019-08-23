@@ -1,12 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
 
 //$body-bg: red;
-$body-color:#111;
-/*$theme-colors:(
-    "primary":red
+$body-color:#fff;
+$grays:(
+    "100": #eceff1,
+    "200": #cfd8dc,
+    "300": #b0bec5,
+    "400": #90a4ae,
+    "500": #78909c,
+    "600": #546e7a,
+    "700": #455a64,
+    "800": #37474f,
+    "900": #263238
 );
-*/
 
+$theme-colors: (
+  "primary":    #00867d,
+  "secondary":  #80cbc4,
+  "success":    #28a745,
+  "info":       #17a2b8,
+  "warning":    #ffc107,
+  "danger":     #dc3545,
+  "light":      #82e9de,
+  "dark":       #4db6ac
+);
+
+/*
+"primary":    #4db6ac,
+  "secondary":  #80cbc4,
+  "success":    #28a745,
+  "info":       #17a2b8,
+  "warning":    #ffc107,
+  "danger":     #dc3545,
+  "light":      #82e9de,
+  "dark":       #00867d
+*/
 
 //$topnav-background-color: $primary;
 //es bootstrap natural o el estilo de sb admin

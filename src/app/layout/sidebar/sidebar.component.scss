@@ -1,6 +1,29 @@
-@import "~src/styles/bootstrap/scss/bootstrap.scss";
+@import "~src/styles/bootstrap/_functions.scss";
+@import "~src/styles/bootstrap/_variables.scss";
+@import "~src/styles/bootstrap/_mixins";
+$theme-colors: (
+  "success":    #28a745,
+  "info":       #17a2b8,
+  "warning":    #ffc107,
+  "danger":     #dc3545,
+  "light":      #82e9de,
+  "dark":       #00867d,
+
+  "primary":    #26a69a,
+  "primary-light":   #82e9de,
+  "primary-dark":   #00867d,
+  "primary-color":    #fafafa,
+  "primary-color-light":    #fffde7,
+
+  "secondary":  #9575cd,
+  "secondary-light":  #c7a4ff,
+  "secondary-dark":  #65499c,
+  "secondary-color":  #ede7f6,
+  "secondary-color-light":    #f5f4f8,
+);
+
 //$topnav-background-color: #222;
-$topnav-background-color: theme-color("light");
+$topnav-background-color: theme-color("primary-color-light");
 .sidebar {
     border-radius: 0;
     position: fixed;
@@ -9,11 +32,11 @@ $topnav-background-color: theme-color("light");
     left: 235px;
     width: 235px;
     margin-left: -235px;
-    margin-bottom: 48px;
+    /*margin-bottom: 48px;*/
     border: none;
     border-radius: 0;
     overflow-y: auto;
-    background-color: $topnav-background-color;
+    background-color: theme-color("secondary-color-light");
     bottom: 0;
     overflow-x: hidden;
     padding-bottom: 40px;
@@ -25,32 +48,51 @@ $topnav-background-color: theme-color("light");
     transition: all 0.2s ease-in-out;
     // border-top: 1px solid rgba(255,255,255,0.3);
     .list-group {
-        a.list-group-item {
-            background: $topnav-background-color;
+        position: absolute;
+        z-index: 100;
+        .list-group-item {
+            background:  theme-color("secondary-color-light"); //$topnav-background-color;
             border: 0;
             border-radius: 0;
-            color: #999;
+            color: gray("700");
             text-decoration: none;
             .fa {
                 margin-right: 10px;
             }
         }
-        a:hover {
-            background: darken($topnav-background-color, 5%);
-            color: #fff;
+        .list-group-item:hover {
+            background-color: theme-color("secondary");
+            // darken($topnav-background-color, 5%);
+            color: theme-color("secondary-color-light");
         }
         a.router-link-active {
-            background: darken($topnav-background-color, 5%);
-            color: #fff;
+            background: theme-color("secondary"); //darken($topnav-background-color, 5%);
+            color: theme-color("secondary-color-light");// #fff;
         }
         .header-fields {
-            padding-top: 10px;
+            padding-top: 1px;
 
             > .list-group-item:first-child {
-                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                border-top: 1px solid theme-color("primary"); //rgba(255, 255, 255, 0.2);
             }
         }
     }
+
+    .lock-screen{
+        color: #000;
+        position:inherit;
+        z-index: 99;
+        background-color: #bcbdbf;
+        width: calc(100vw);
+        padding: 0;
+        margin: 0;
+        left: 0;
+        top: 0;
+        opacity: .4;
+        height: calc(100vh);
+        text-align: right;
+    }
+//??
     .sidebar-dropdown {
         *:focus {
             border-radius: none;
@@ -83,7 +125,7 @@ $topnav-background-color: theme-color("light");
             background: darken($topnav-background-color, 5%);
         }
         .panel-collapse {
-            border-radious: 0;
+            //border-radious: 0;
             border: none;
             .panel-body {
                 .list-group-item {
@@ -123,9 +165,16 @@ $topnav-background-color: theme-color("light");
             height: auto;
             li {
                 a {
-                    color: #fff;
-                    padding: 10px;
+                    text-decoration: none;
+                    color: theme-color("secondary");
+                  //  color: #fff;
+                  //  padding: .25rem;
                     display: block;
+                    line-height: 2rem;
+                }
+                a:hover{
+                    color: theme-color("secondary");
+                    background-color: theme-color("secondary-light");
                 }
             }
         }
@@ -153,13 +202,14 @@ $topnav-background-color: theme-color("light");
 }
 
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 0px rgba(255, 255, 255, 1);
+    -webkit-box-shadow: inset 0 0 0px theme-color("secondary");
     border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb {
     border-radius: 3px;
-    -webkit-box-shadow: inset 0 0 3px rgba(255, 255, 255, 1);
+    background-color: theme-color("secondary-light");
+    -webkit-box-shadow: inset 0 0 3px theme-color("secondary");
 }
 
 .toggle-button {
@@ -168,14 +218,16 @@ $topnav-background-color: theme-color("light");
     cursor: pointer;
     padding: 12px;
     bottom: 0;
-    color: #999;
-    background: #212529;
+    //color: #999;
+   // background: #212529;
+    background: theme-color("primary");
+    color: theme-color("primary-color");
     i {
         font-size: 23px;
     }
     &:hover {
-        background: darken($topnav-background-color, 5%);
-        color: #fff;
+        //background: theme-color("primary"); //darken($topnav-background-color, 5%);
+        color: theme-color("primary-color-light"); //#fff;
     }
     border-top: 1px solid #999;
     -webkit-transition: all 0.2s ease-in-out;

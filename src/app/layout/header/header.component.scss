@@ -1,32 +1,77 @@
 @import "~src/styles/bootstrap/_functions.scss";
 @import "~src/styles/bootstrap/_variables.scss";
 @import "~src/styles/bootstrap/_mixins";
+$theme-colors: (
+  "success":    #28a745,
+  "info":       #17a2b8,
+  "warning":    #ffc107,
+  "danger":     #dc3545,
+  "light":      #82e9de,
+  "dark":       #00867d,
 
+  "primary":    #26a69a,
+  "primary-light":   #82e9de,
+  "primary-dark":   #00867d,
+  "primary-color":    #fafafa,
+  "primary-color-light":    #fffde7,
+
+  "secondary":  #9575cd,
+  "secondary-light":  #c7a4ff,
+  "secondary-dark":  #65499c,
+  "secondary-color":  #ede7f6,
+  "secondary-color-light":    #f5f4f8,
+);
 //https://getbootstrap.com/docs/4.0/getting-started/theming/
 //theme-color-level("primary",-.15);//
-$topnav-background-color: theme-color-level("primary",-10);// theme-color("primary"); // gray("600");
-$topnav-color:color-yiq($topnav-background-color);
+
+
+$topnav-background-color: theme-color("primary");// theme-color("primary"); // gray("600");
+$topnav-color-hover: theme-color("light");
+$topnav-color: color-yiq($topnav-background-color);
+
+
 :host {
+    .navbar-toggler > i.text-muted{
+        color: #fff !important ;
+    }
+    button:focus{
+        outline: none;
+    }
     .navbar {
-        background-color: $topnav-background-color;
+        background-color: theme-color("primary");
         .navbar-brand {
-            color: color-yiq($topnav-color); //#fff
+            color: theme-color("primary-color"); //color-yiq($topnav-color); //#fff
         }
         .nav-item > a {
-            color: color-yiq($topnav-background-color);// #999;
+            color: theme-color("primary-color"); //color-yiq($topnav-background-color);// #999;
             &:hover {
-                color: color-yiq($topnav-color); //#fff
+                color: theme-color("primary-color-light");//#fff
             }
         }
+        .dropdown-item{
+            //color: gray("800");
+            color:  theme-color("primary"); 
+        }
+        .dropdown-item:hover{
+            background-color: theme-color("secondary-color-light");
+           
+        }
+        
     }
+    
     .messages {
         width: 300px;
         .media {
-            border-bottom: 1px solid #ddd;
+            cursor:pointer;
+            color: $topnav-background-color;
+            border-bottom: 1px solid theme-color("secondary");
             padding: 5px 10px;
             &:last-child {
                 border-bottom: none;
             }
+        }
+        .media:hover {
+            background-color: theme-color("secondary-color-light");
         }
         .media-body {
             h5 {
