@@ -1,0 +1,45 @@
+@import "~src/styles/bootstrap/_functions.scss";
+@import "~src/styles/bootstrap/_variables.scss";
+@import "~src/styles/bootstrap/_mixins";
+
+//https://getbootstrap.com/docs/4.0/getting-started/theming/
+//theme-color-level("primary",-.15);//
+$topnav-background-color: theme-color-level("primary",-10);// theme-color("primary"); // gray("600");
+$topnav-color:color-yiq($topnav-background-color);
+:host {
+    .navbar {
+        background-color: $topnav-background-color;
+        .navbar-brand {
+            color: color-yiq($topnav-color); //#fff
+        }
+        .nav-item > a {
+            color: color-yiq($topnav-background-color);// #999;
+            &:hover {
+                color: color-yiq($topnav-color); //#fff
+            }
+        }
+    }
+    .messages {
+        width: 300px;
+        .media {
+            border-bottom: 1px solid #ddd;
+            padding: 5px 10px;
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+        .media-body {
+            h5 {
+                font-size: 13px;
+                font-weight: 600;
+            }
+            .small {
+                margin: 0;
+            }
+            .last {
+                font-size: 12px;
+                margin: 0;
+            }
+        }
+    }
+}

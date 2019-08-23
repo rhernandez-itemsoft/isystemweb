@@ -1,8 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
-//@import "font-awesome/scss/font-awesome.scss";
-//@import "bootstrap/bootstrap";
+
+//$body-bg: red;
+$body-color:#111;
+/*$theme-colors:(
+    "primary":red
+);
+*/
+
+
+//$topnav-background-color: $primary;
+//es bootstrap natural o el estilo de sb admin
 @import "bootstrap/scss/bootstrap.scss";
 //@import "sbadmin/scss/sb-admin-2.scss";
+
+
 @import "spinner";
 @import "utils";
 @import "rtl";
