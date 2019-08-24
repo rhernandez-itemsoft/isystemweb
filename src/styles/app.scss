@@ -1,51 +1,103 @@
 /* You can add global styles to this file, and also import other style files */
 
 //$body-bg: red;
-$body-color:#fff;
-$grays:(
-    "100": #eceff1,
-    "200": #cfd8dc,
-    "300": #b0bec5,
-    "400": #90a4ae,
-    "500": #78909c,
-    "600": #546e7a,
-    "700": #455a64,
-    "800": #37474f,
-    "900": #263238
-);
-
-$theme-colors: (
-  "primary":    #00867d,
-  "secondary":  #80cbc4,
+//$body-color:#fff;
+//https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=26A69A&secondary.color=BA68C8&primary.text.color=FAFAFA&secondary.text.color=000000
+/*$theme-colors: (
   "success":    #28a745,
   "info":       #17a2b8,
   "warning":    #ffc107,
   "danger":     #dc3545,
   "light":      #82e9de,
-  "dark":       #4db6ac
-);
+  "dark":       #00867d,
 
-/*
-"primary":    #4db6ac,
-  "secondary":  #80cbc4,
-  "success":    #28a745,
-  "info":       #17a2b8,
-  "warning":    #ffc107,
-  "danger":     #dc3545,
-  "light":      #82e9de,
-  "dark":       #00867d
+  "primary":    #26a69a,
+  "primary-light":   #82e9de,
+  "primary-dark":   #00867d,
+  "primary-color":    #fafafa,
+  "primary-color-light":    #fffde7,
+
+  "secondary":  #9575cd,
+  "secondary-light":  #c7a4ff,
+  "secondary-dark":  #65499c,
+  "secondary-color":  #ede7f6,
+  "secondary-color-light":    #f5f4f8,
+);
 */
-
+//@import "sbadmin/scss/variables.scss";
 //$topnav-background-color: $primary;
 //es bootstrap natural o el estilo de sb admin
 @import "bootstrap/scss/bootstrap.scss";
-//@import "sbadmin/scss/sb-admin-2.scss";
-
-
 @import "spinner";
 @import "utils";
 @import "rtl";
 @import "responsive";
+
+
+//@import "sbadmin/scss/sb-admin-2.scss";
+/*
+@import 
+"sbadmin/scss/mixins.scss",
+"sbadmin/scss/global.scss",
+"sbadmin/scss/utilities.scss",
+
+"sbadmin/scss/dropdowns.scss",
+"sbadmin/scss/navs.scss",
+"sbadmin/scss/buttons.scss",
+"sbadmin/scss/charts.scss",
+"sbadmin/scss/login.scss",
+"sbadmin/scss/error.scss",
+"sbadmin/scss/footer.scss"
+;
+*/
+/*
+@import "mixins.scss";
+@import "global.scss";
+@import "utilities.scss";
+
+// Custom Components
+@import "dropdowns.scss";
+@import "navs.scss";
+@import "buttons.scss";
+@import "cards.scss";
+@import "charts.scss";
+@import "login.scss";
+@import "error.scss";
+@import "footer.scss";
+*/
+
+
+
+/*
+body{
+  font-size: 13pt;
+  line-height: 13pt;
+}
+
+input[type=checkbox][type=radio]{
+  height: 0.85em;
+  width: 0.85em;
+}
+.form-control{
+  font-size: 13pt;
+  line-height: 13pt;
+  padding: 0 0.75rem;
+
+  display: block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  
+ 
+  font-weight: 400;
+ 
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+*/
 
 @media print {
     .breadcrumb {

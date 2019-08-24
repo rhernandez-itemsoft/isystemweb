@@ -125,7 +125,7 @@ $topnav-background-color: theme-color("primary-color-light");
             background: darken($topnav-background-color, 5%);
         }
         .panel-collapse {
-            //border-radious: 0;
+            border-radious: 0;
             border: none;
             .panel-body {
                 .list-group-item {

@@ -1,7 +1,9 @@
-$topnav-background-color: #222;
+$topnav-background-color: #fff;
 :host {
     display: block;
+    
 }
+
 .login-page {
     position: absolute;
     top: 0;
@@ -11,7 +13,7 @@ $topnav-background-color: #222;
     overflow: auto;
     background: $topnav-background-color;
     text-align: center;
-    color: #fff;
+    color: #333;
     padding: 3em;
     .col-lg-4 {
         padding: 0;
@@ -27,30 +29,30 @@ $topnav-background-color: #222;
         background: 0 0;
         border: none;
         box-shadow: none;
-        border-bottom: 2px solid rgba(255, 255, 255, 0.5);
-        color: #fff;
+        border-bottom: 2px solid #bcbdbf;
+        color: #333;
         border-radius: 0;
     }
     .input-underline:focus {
-        border-bottom: 2px solid #fff;
+        border-bottom: 2px solid #666;
         box-shadow: none;
     }
     .rounded-btn {
         -webkit-border-radius: 50px;
         border-radius: 50px;
-        color: rgba(255, 255, 255, 0.8);
+        color: #666;
         background: $topnav-background-color;
-        border: 2px solid rgba(255, 255, 255, 0.8);
+        border: 2px solid #bcbdbf;
         font-size: 18px;
-        line-height: 40px;
+        line-height: 40px; 
         padding: 0 25px;
     }
     .rounded-btn:hover,
     .rounded-btn:focus,
     .rounded-btn:active,
     .rounded-btn:visited {
-        color: rgba(255, 255, 255, 1);
-        border: 2px solid rgba(255, 255, 255, 1);
+        color: #666;
+        border: 2px solid #bcbdbf;
         outline: none;
     }
 
@@ -67,17 +69,17 @@ $topnav-background-color: #222;
     .form-group {
         padding: 8px 0;
         input::-webkit-input-placeholder {
-            color: rgba(255, 255, 255, 0.6) !important;
+            color: #666 !important;
         }
 
         input:-moz-placeholder {
             /* Firefox 18- */
-            color: rgba(255, 255, 255, 0.6) !important;
+            color: #666 !important;
         }
 
         input::-moz-placeholder {
             /* Firefox 19+ */
-            color: rgba(255, 255, 255, 0.6) !important;
+            color: #666 !important;
         }
 
         input:-ms-input-placeholder {
@@ -92,4 +94,43 @@ $topnav-background-color: #222;
         border-radius: 50%;
         border: 2px solid #fff;
     }
+}
+
+
+
+.login-page{
+    .input-underline:default,
+    .input-underline:invalid,
+    .input-underline:valid,
+    .input-underline:required,
+    .input-underline:defined,
+    .input-underline::-ms-reveal,
+    .input-underline::-ms-filll,
+    .input-underline::-ms-track,
+    .input-underline::-ms-value,
+    .input-underline::before,
+    .input-underline::marker,
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active,
+    input.input-underline:-webkit-autofill,
+    input:-webkit-autofill,
+    input:-webkit-autofill:focus,
+    input{
+        background-color: transparent;
+        background: transparent;
+        background-clip: unset;
+        border: none;
+        border-bottom: 1px solid #000;
+        border-radius: 0;
+        outline: none;
+        box-shadow: none;
+        box-sizing: content-box;
+        border-bottom: 2px solid #000 !important;
+        transition: box-shadow .3s, border .3s, -webkit-box-shadow .3s;
+        overflow: visible;
+      
+  }
 }
