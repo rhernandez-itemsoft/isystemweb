@@ -1,6 +1,9 @@
 $topnav-background-color: #fff;
 :host {
     display: block;
+    .expand{
+        width:100%;
+    }
     
 }
 
@@ -24,6 +27,7 @@ $topnav-background-color: #fff;
         font-size: 18px;
         line-height: 1.3333333;
         border-radius: 0;
+        mix-blend-mode: initial;
     }
     .input-underline {
         background: 0 0;

@@ -6,22 +6,27 @@
             <img src="assets/images/logois.png" width="300px" class="avatar img-fluid" />
            <!---<h1>itemSoft México</h1>-->
             <form role="form" class="w3-container">
-                    
-                <div class="form-content">
+                <div class="form-content mb-0 pb-0">
                     <div class="form-group">
-                        <input type="text" ng-model="name" class="form-control  input-lg input-underline" [ngClass]="'input-underline'"  placeholder="{{ 'Email' | translate }}">
+                        <mat-form-field class="expand ">
+                            <input matInput placeholder="{{ 'Email' | translate }}" value="" ng-model="name">
+                        </mat-form-field>
                     </div>
-
                     <div class="form-group">
-                        <input type="password"
-                         class="form-control input-underline input-lg" id="" 
-                         [ngClass]="'input-underline'" 
-                         placeholder="{{ 'Password' | translate }}">
+                        <mat-form-field class="expand ">
+                            <input matInput type="password" placeholder="{{ 'Password' | translate }}" value="" ng-model="name">
+                        </mat-form-field>
                     </div>
                 </div>
-                <a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onLoggedin()">{{ 'Log in' | translate }}</a>
-                &nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/signup']">{{ 'Register' | translate }}</a>
+                <div class="row">
+                    <div class="col-md-6 mt-2">
+                        <button mat-raised-button class="expand" color="default" [routerLink]="['/dashboard']" (click)="onLoggedin()">{{ 'Log in' | translate }}</button>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <button mat-raised-button class="expand" color="primary" [routerLink]="['/signup']">{{ 'Register' | translate }}</button>
+                    </div>
+                </div>
+                    
             </form>
         </div>
     </div>
