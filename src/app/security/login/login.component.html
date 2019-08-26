@@ -17,11 +17,16 @@
                 </div>
             </div>
             <div class="row">
+                <!--
                 <div class="col-md-6 mt-2">
                     <button mat-raised-button class="expand" color="default" [routerLink]="['/signup']">{{ 'Register' | translate }}</button>
                 </div>
+                -->
                 <div class="col-md-6 mt-2">
-                    <button mat-raised-button class="expand" color="primary" [routerLink]="['/dashboard']" (click)="onLoggedin()">{{ 'Log in' | translate }}</button>
+                    <button mat-raised-button class="expand" color="primary" (click)="logIn();">{{ 'Log in' | translate }}</button>
+                    <!--
+                        <button mat-raised-button class="expand" color="primary" [routerLink]="['/dashboard']" (click)="onLoggedin()">{{ 'Log in' | translate }}</button>
+                        -->
                 </div>
             </div>
         </div>
