@@ -12,7 +12,8 @@ import {MatButtonModule} from '@angular/material/button';
         CommonModule,
         TranslateModule,
         LoginRoutingModule,
-        MatInputModule,MatButtonModule
+        MatInputModule,
+        MatButtonModule
     ],
     declarations: [LoginComponent]
 })
