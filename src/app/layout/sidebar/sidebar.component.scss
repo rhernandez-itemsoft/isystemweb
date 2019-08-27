@@ -50,6 +50,7 @@ $topnav-background-color: theme-color("primary-color-light");
     .list-group {
         position: absolute;
         z-index: 100;
+        margin-bottom:3.5rem;
         .list-group-item {
             background:  theme-color("secondary-color-light"); //$topnav-background-color;
             border: 0;
@@ -214,7 +215,7 @@ $topnav-background-color: theme-color("primary-color-light");
 
 .toggle-button {
     position: fixed;
-    width: 236px;
+    width: 234px;
     cursor: pointer;
     padding: 12px;
     bottom: 0;

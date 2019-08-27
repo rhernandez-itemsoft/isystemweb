@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from '../../shared/services/AuthenticationService';
+import { User } from 'src/app/models/user';
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
@@ -9,7 +10,7 @@ import { AuthenticationService } from '../../shared/services/AuthenticationServi
 })
 export class HeaderComponent implements OnInit {
     public pushRightClass: string;
-
+    public currentUser: User;
     constructor(private translate: TranslateService, public router: Router, private authService: AuthenticationService) {
         this.router.events.subscribe(val => {
             if ( val instanceof NavigationEnd && window.innerWidth <= 992 && this.isToggled()
@@ -17,8 +18,15 @@ export class HeaderComponent implements OnInit {
                 this.toggleSidebar();
             }
         });
-    }
 
+        this.authService.currentUser.subscribe(response => {
+            this.currentUser = response;
+            console.log(response);
+        });
+    }
+    currentUserFullName(): string {
+       return this.currentUser.firstname + ' ' + this.currentUser.lastname + ' ' +  this.currentUser.mlastname;
+    }
     ngOnInit() {
         this.pushRightClass = 'push-right';
     }
@@ -41,10 +49,6 @@ export class HeaderComponent implements OnInit {
     rltAndLtr() {
         const dom: any = document.querySelector('body');
         dom.classList.toggle('rtl');
-    }
-
-    onLoggedout() {
-        localStorage.removeItem('isLoggedin');
     }
 
     changeLang(language: string) {

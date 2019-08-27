@@ -1,0 +1,30 @@
+.mat-table.table-sm tbody tr{
+    height: 2rem;
+}
+.mat-table{
+  .cdk-column-select{
+    width:4rem;
+  }
+  .mat-column-select {
+    overflow: initial;
+  }
+  .mat-column-actions{
+    width:3rem;
+  }
+  td.mat-cell:last-of-type.mat-column-actions{
+    padding-right: 0px;
+  }
+  
+  .thead{
+    background-color: theme-color("primary");
+    th{
+      color: theme-color("primary-color");
+    }
+  }
+
+
+  tr th,
+  tr td{
+    cursor: pointer;
+  }
+}

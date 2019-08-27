@@ -1,5 +1,43 @@
 <nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
     <div class="list-group" >
+        <a routerLink="/admin" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-wrench"></i>&nbsp;
+            <span>{{ 'Admintration' | translate }}</span>
+        </a>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('adminPages')">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Admintration' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'adminPages'">
+                <ul class="submenu">
+                    <li>
+                        <a routerLink="/admin/users">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Users' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/admin/roles">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Roles' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/admin/status">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Status' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+        <a routerLink="/catalog" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+            <span>{{ 'Admin Panel' | translate }}</span>
+        </a>
+
         <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;
             <span>{{ 'Dashboard' | translate }}</span>
@@ -143,7 +181,7 @@
             </div>
         </div>
     </div>
-    <div style="z-index:20; position: absolute" class="toggle-button" [ngClass]="{collapsed: collapsed} " (click)="toggleCollapsed()" [hidden]="showBtnHideBar()" >
+    <div class="toggle-button fixed-bottom" [ngClass]="{collapsed: collapsed} " (click)="toggleCollapsed()" [hidden]="showBtnHideBar()" >
         <i class="fa fa-fw fa-angle-double-{{collapsed?'right':'left'}}"></i>&nbsp;
         <span>{{ 'Collapse Sidebar' | translate }}</span>
     </div>

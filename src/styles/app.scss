@@ -4,7 +4,7 @@
 //$body-bg: red;
 //$body-color:#fff;
 //https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=26A69A&secondary.color=BA68C8&primary.text.color=FAFAFA&secondary.text.color=000000
-/*$theme-colors: (
+$theme-colors: (
   "success":    #28a745,
   "info":       #17a2b8,
   "warning":    #ffc107,
@@ -24,8 +24,8 @@
   "secondary-color":  #ede7f6,
   "secondary-color-light":    #f5f4f8,
 );
-*/
-//@import "sbadmin/scss/variables.scss";
+
+
 //$topnav-background-color: $primary;
 //es bootstrap natural o el estilo de sb admin
 @import "bootstrap/scss/bootstrap.scss";
@@ -33,81 +33,13 @@
 @import "utils";
 @import "rtl";
 @import "responsive";
+@import "common";
+@import "mybootstrap";
+@import "tablematerial";
 
-
-//@import "sbadmin/scss/sb-admin-2.scss";
-/*
-@import 
-"sbadmin/scss/mixins.scss",
-"sbadmin/scss/global.scss",
-"sbadmin/scss/utilities.scss",
-
-"sbadmin/scss/dropdowns.scss",
-"sbadmin/scss/navs.scss",
-"sbadmin/scss/buttons.scss",
-"sbadmin/scss/charts.scss",
-"sbadmin/scss/login.scss",
-"sbadmin/scss/error.scss",
-"sbadmin/scss/footer.scss"
-;
-*/
-/*
-@import "mixins.scss";
-@import "global.scss";
-@import "utilities.scss";
-
-// Custom Components
-@import "dropdowns.scss";
-@import "navs.scss";
-@import "buttons.scss";
-@import "cards.scss";
-@import "charts.scss";
-@import "login.scss";
-@import "error.scss";
-@import "footer.scss";
-*/
-
-
-
-/*
-body{
-  font-size: 13pt;
-  line-height: 13pt;
-}
-
-input[type=checkbox][type=radio]{
-  height: 0.85em;
-  width: 0.85em;
-}
-.form-control{
-  font-size: 13pt;
-  line-height: 13pt;
-  padding: 0 0.75rem;
-
-  display: block;
-  width: 100%;
-  height: calc(1.5em + 0.75rem + 2px);
-  
- 
-  font-weight: 400;
- 
-  color: #495057;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-*/
 
 @media print {
     .breadcrumb {
         display: none !important;
     }
-}
-
-
-
-.expand{
-  width:100%;
 }

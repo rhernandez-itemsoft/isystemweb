@@ -31,14 +31,8 @@ export class AuthenticationService {
     public get currentUserValue(): User {
         return this.currentUserSubject.value;
     }
-
+    
     logIn(username: string, password: string) {
-        /*
-        httpOptions.headers.append('Access-Control-Allow-Origin', 'http://localhost:8080');
-        httpOptions.headers.append('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-        httpOptions.headers.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-        httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
-        */
         return this.http.post<any>(`${environment.apiUrl}/security/login`, { email: username, 'password' : password })
             .pipe(map(response => {
                 const token = response.Data.Token;

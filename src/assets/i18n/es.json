@@ -36,5 +36,9 @@
     "Password": "Contraseña",
     "Repeat Password": "Repetir Contraseña",
     "Register": "Registrate",
-    "Log in": "Iniciar Sesión"
+    "Log in": "Iniciar Sesión",
+    "Admintration":"Administración",
+    "Admin Panel": "Panel de Administración",
+    "Users":"Usuarios",
+    "User Groups":"Grupos de usuarios"
 }

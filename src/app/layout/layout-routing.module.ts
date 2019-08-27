@@ -8,6 +8,7 @@ const routes: Routes = [
         component: LayoutComponent,
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'prefix' },
+            { path: 'admin', loadChildren: () => import('../admin/admin.module').then(m => m.AdminModule) },
             { path: 'dashboard', loadChildren: () => import('../demo/dashboard/dashboard.module').then(m => m.DashboardModule) },
             { path: 'charts', loadChildren: () => import('../demo/charts/charts.module').then(m => m.ChartsModule) },
             { path: 'tables', loadChildren: () => import('../demo/tables/tables.module').then(m => m.TablesModule) },

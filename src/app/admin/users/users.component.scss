@@ -1,0 +1,30 @@
+
+.flex{
+    display: flex;
+}
+.flex-1{
+    flex-grow: 1;
+}
+.flex-2{
+    flex-grow: 2;
+}
+
+
+:host {
+    
+    .my-table {
+        tr{
+            display: flex;
+            th{
+                flex-grow: 1;
+            }
+            th:nth-child(1){
+                flex-grow: 2;
+            }
+            th:nth-child(2){
+                flex-grow: 3;
+            }
+        }
+
+    }
+}
