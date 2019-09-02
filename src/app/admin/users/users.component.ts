@@ -1,73 +1,116 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-import {SelectionModel} from '@angular/cdk/collections';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource, } from '@angular/material/table';
+import { SelectionModel } from '@angular/cdk/collections';
+import { UserService } from '../../shared/services/UserService';
+import { User } from '../../models/user';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { map } from 'rxjs/operators';
+import { HttpHeaders, HttpClient, HttpResponse } from '@angular/common/http';
+
+
+
+class UserDataSource implements DataSource<User> {
+  public data: Array<User> = null;
+  private statusSubject = new BehaviorSubject<User[]>([]);
+  private loading = new BehaviorSubject<boolean>(false);
+
+  public loading$ = this.loading.asObservable();
+
+  constructor(private http: HttpClient, private userSvc: UserService) { }
+
+  connect(collectionViewer: CollectionViewer): Observable<User[]> {
+    return this.statusSubject.asObservable();
+  }
+
+  disconnect(collectionViewer: CollectionViewer): void {
+    this.statusSubject.complete();
+    this.loading.complete();
+  }
+
+  public load(pageIndex, pageSize): Observable<any> {
+    this.loading.next(true);
+
+    return this.http.get(`http://localhost:8080/users/${pageIndex}/${pageSize}`)
+    .pipe(
+      map( (result: any) => {
+        this.data = result.Data.Rows;
+        this.statusSubject.next(this.data);
+        this.loading.next(false);
+        return result;
+      })
+    )
+    ;
+  }
+}
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-
-
 export class UsersComponent implements OnInit {
- 
-
-  constructor() { }
-
-  displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol', 'actions'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  displayedColumns: string[] = ['select', 'id', 'firstname', 'lastname', 'mlastname', 'email', 'actions'];
+  dataSource: UserDataSource;
+  selection = new SelectionModel<User>(true, []);
+  rowSelected: User = new User();
+  indexRow = 0;
+  totalRows = 0;
+  pageSize = 10;
+  pageSizeOptions = [10, 50, 100];
   
-  selection = new SelectionModel<PeriodicElement>(true, []);
- // this.selection = new SelectionModel<MyDataType>(allowMultiSelect, initialSelection);
 
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  constructor(private http: HttpClient, private userSvc: UserService) {  }
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+    this.dataSource = new UserDataSource(this.http, this.userSvc);
+    this.loadData(null);
+  }
+  loadData(event: PageEvent) {
+    let pageIndex = event && event.pageIndex ? event.pageIndex : 0;
+    this.pageSize = event && event.pageSize ? event.pageSize : this.pageSize;
+    pageIndex = pageIndex * this.pageSize;
+
+    this.dataSource.load(pageIndex, this.pageSize).subscribe(
+      response => {
+      this.totalRows = response.Data.Total;
+      response.Data.Rows.forEach(row => {
+        this.selection.selected.forEach(rowSelected => {
+          if (row.id === rowSelected.id){
+            this.selection.select(row);
+            return;
+          }
+        });
+      });
+
+      }
+    );
+  }
+
+  showActions(row) {
+    this.rowSelected = row;
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
-    return numSelected == numRows;
+    return numSelected === numRows;
   }
-
   /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
+  selectedToggle() {
     this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
   }
 }
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-  {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
-  {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
-  {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
-  {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
-  {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
-  {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
-  {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
-  {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
-  {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
-  {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
-];
+
+
+
+
+

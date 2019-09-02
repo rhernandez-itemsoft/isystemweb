@@ -19,15 +19,13 @@ export class HeaderComponent implements OnInit {
             }
         });
 
-        this.authService.currentUser.subscribe(response => {
-            this.currentUser = response;
-            console.log(response);
-        });
     }
     currentUserFullName(): string {
        return this.currentUser.firstname + ' ' + this.currentUser.lastname + ' ' +  this.currentUser.mlastname;
     }
     ngOnInit() {
+        this.currentUser = this.authService.currentUserValue;
+
         this.pushRightClass = 'push-right';
     }
 

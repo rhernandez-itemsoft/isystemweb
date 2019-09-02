@@ -27,11 +27,10 @@ export class AuthenticationService {
             this.currentUser = this.currentUserSubject.asObservable();
         }
     }
-
     public get currentUserValue(): User {
         return this.currentUserSubject.value;
     }
-    
+
     logIn(username: string, password: string) {
         return this.http.post<any>(`${environment.apiUrl}/security/login`, { email: username, 'password' : password })
             .pipe(map(response => {

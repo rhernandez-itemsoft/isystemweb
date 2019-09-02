@@ -13,6 +13,9 @@ export class User {
     token?: string;
 }
 
+
+
+
 export class LogIn {
     email: string;
     username: string;

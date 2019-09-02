@@ -29,8 +29,8 @@ export function getToken() {
         JwtModule.forRoot({
             config: {
               tokenGetter: getToken,
-              whitelistedDomains: [ 'http://localhost:8080'],
-              blacklistedRoutes: [ '*' ]
+               whitelistedDomains: [ '*'],
+              // blacklistedRoutes: [ '' ]
             }
         }),
 
@@ -43,7 +43,7 @@ export function getToken() {
     providers: [
         AuthGuard,
         { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+      //  { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     ],
     bootstrap: [AppComponent]
 })

@@ -1,0 +1,142 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource, } from '@angular/material/table';
+import { SelectionModel } from '@angular/cdk/collections';
+import { UserService } from '../../shared/services/UserService';
+import { User } from '../../models/user';
+
+@Component({
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.scss']
+})
+
+
+export class UsersComponent implements OnInit {
+  displayedColumns: string[] = ['select', 'id', 'firstname', 'lastname', 'mlastname', 'email', 'actions'];
+  // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  // selection = new SelectionModel<PeriodicElement>(true, []);
+  // this.selection = new SelectionModel<MyDataType>(allowMultiSelect, initialSelection);
+  //rows: User[] = [];
+  dataSource = UserDataSource; //new MatTableDataSource<User>(null);
+  selection = new SelectionModel<User>(true, []);
+  rowSelected: User = new User();
+  totalRows = 0;
+  pageSize = 5;
+  pageSizeOptions = [5, 50, 100];
+
+  constructor(private userSvc: UserService) {  }
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
+  ngOnInit() {
+    //this.dataSource.paginator = this.paginator;
+    
+   // this.getAll();
+    
+    /*
+    var query="";
+    for (let i = 0; i < 29283; i++) {
+      query += "INSERT INTO `users` ( email, username, password, firstname, lastname, mlastname, role_id, status_id, created_at, updated_at, token) VALUES ( 'rherl23@gmail"+i+".com', 'rherl23@gmail"+i+".com', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'Pedro "+i+"', 'Orozco "+i+"', 'Or "+i+"', 1, 1, '2019-08-19 17:37:07', '2019-08-19 17:37:07', '');";
+    }
+
+    var a = document.createElement("a"); //document.getElementById("a");
+    var file = new Blob([query], {type: 'text/plain'});
+    a.href = URL.createObjectURL(file);
+    a.download = 'myfilename.txt';
+   a.click();
+    */
+  }
+
+  getAll() {
+    this.userSvc.getAll(0, 100).
+      subscribe(response => {
+        //this.rows = response.Data;
+        // this.dataSource = new MatTableDataSource<User>(response.Data);
+        // this.dataSource.data = response.Data;
+        //console.log(this.rows.length);
+        /*console.log(response.Data);
+        if (response.Data) {
+          if (response.Data.Rows) {
+            this.dataSource.data  = response.Data.Rows;
+          }
+          console.log(this.paginator.length);
+         
+          if (this.paginator.length !== undefined && response.Data.Total) {
+            this.paginator.length = response.Data.Total;
+          } else {
+            this.paginator.length = 0;
+          }
+        }*/
+
+       // this.paginator.length = response.Data.Total;
+        //this.dataSource.paginator.length = this.rows.length;
+      });
+  }
+
+  showTable() {
+    return this.dataSource && this.dataSource.data && this.dataSource.data.length > 0;
+  }
+  getServerData(event: PageEvent) {
+    console.log(event);
+  }
+  // selecciona la fila que pudiera tener una accion : es el menu que aparece en la tabla
+  rowForAction(row) {
+    this.rowSelected = row;
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+}
+
+
+export class UserDataSource implements MatTableDataSource<User> {
+  public data: Array<Status> = null;
+  private statusSubject = new BehaviorSubject<Status[]>([]);
+  private loading = new BehaviorSubject<boolean>(false);
+
+  public loading$ = this.loading.asObservable();
+
+  constructor(private http: IsHttpService) { }
+
+  connect(collectionViewer: CollectionViewer): Observable<Status[]> {
+    return this.statusSubject.asObservable();
+  }
+
+  disconnect(collectionViewer: CollectionViewer): void {
+    this.statusSubject.complete();
+    this.loading.complete();
+  }
+
+  loadStatus(pageIndex, pageSize): Observable<any> {
+    this.loading.next(true);
+    return this.http.post('status/search', { pageIndex: pageIndex, pageSize: pageSize })
+      .finally(() => {
+        this.loading.next(false);
+      })
+      /*.subscribe(
+        result => {
+          this.data = result.data;
+          this.statusSubject.next(result.data);
+        },
+        error => { console.log(error);  }
+      )*/
+      .map((result: any) => {
+        console.log(result);
+        this.data = result.data;
+        this.statusSubject.next(result.data);
+        return result;
+      });
+  }
+}
