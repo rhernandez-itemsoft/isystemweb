@@ -1,9 +1,8 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { UsersRoutingModule } from './users-routing.module';
-import { UsersComponent } from './users.component';
+import { ItableComponent } from './itable.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
@@ -11,23 +10,20 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
-import { ITableModule } from '../../shared/webcomp/itable/itable.module';
-// import { ItableComponent } from '../../shared/webcomp/itable/itable.component';
 @NgModule({
-  declarations: [UsersComponent],
+  declarations: [ItableComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  exports:[ ItableComponent ],
   imports: [
     CommonModule,
     TranslateModule,
-    UsersRoutingModule,
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
     MatDividerModule,
-    MatCheckboxModule,
-    ITableModule
-  ],
+    MatCheckboxModule
+  ]
 })
-export class UsersModule { }
+export class ITableModule { }

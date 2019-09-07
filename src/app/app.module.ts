@@ -15,6 +15,7 @@ import { AuthGuard } from './shared';
 import {BasicAuthInterceptor } from './shared/interceptor/BasicAuthInterceptor';
 import {ErrorInterceptor } from './shared/interceptor/ErrorInterceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+// import { ItableComponent } from './shared/webcomp/itable/itable.component';
 
 
 export function getToken() {

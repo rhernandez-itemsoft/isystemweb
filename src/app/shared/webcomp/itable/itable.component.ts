@@ -1,25 +1,23 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource, } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { UserService } from '../../shared/services/UserService';
-import { User } from '../../models/user';
-import { Observable, BehaviorSubject } from 'rxjs';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { map } from 'rxjs/operators';
 import { HttpHeaders, HttpClient, HttpResponse } from '@angular/common/http';
-import { ColumnsITable } from '../../shared/webcomp/itable/models/entities';
+import { Observable, BehaviorSubject } from 'rxjs';
 
-class UserDataSource implements DataSource<User> {
-  public data: Array<User> = null;
-  private statusSubject = new BehaviorSubject<User[]>([]);
+import { environment } from '../../../../environments/environment';
+import { ColumnsITable } from './models/entities';
+class IDataSource implements DataSource<any> {
+  public data: Array<any> = null;
+  private statusSubject = new BehaviorSubject<any[]>([]);
   private loading = new BehaviorSubject<boolean>(false);
-
   public loading$ = this.loading.asObservable();
 
-  constructor(private http: HttpClient, private userSvc: UserService) { }
+  constructor(private http: HttpClient) { }
 
-  connect(collectionViewer: CollectionViewer): Observable<User[]> {
+  connect(collectionViewer: CollectionViewer): Observable<any[]> {
     return this.statusSubject.asObservable();
   }
 
@@ -28,10 +26,10 @@ class UserDataSource implements DataSource<User> {
     this.loading.complete();
   }
 
-  public load(pageIndex, pageSize): Observable<any> {
+  public load(urlService: string): Observable<any> {
     this.loading.next(true);
 
-    return this.http.get(`http://localhost:8080/users/${pageIndex}/${pageSize}`)
+    return this.http.get(urlService)
       .pipe(
         map((response: any) => {
           if (response === undefined || response === null || response.Data === undefined || response === null) {
@@ -40,6 +38,7 @@ class UserDataSource implements DataSource<User> {
             this.data = response.Data.Rows;
             this.statusSubject.next(this.data);
           }
+          this.loading.next(false);
           return response;
         })
       )
@@ -48,61 +47,51 @@ class UserDataSource implements DataSource<User> {
 }
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  selector: 'app-itable',
+  templateUrl: './itable.component.html',
+  styleUrls: ['./itable.component.scss'],
+
 })
-export class UsersComponent implements OnInit {
-  /*
+export class ItableComponent implements OnInit {
+
   // Contiene la información de las columnas
   @Input() inColumns: ColumnsITable[];
   // Es la url a la que se llamará para llenar de datos la tabla
-  @Input() inUrl: string;
+  @Input() inServiceApi: string;
   // Default page size
   @Input() inPageSize: number;
   // Default page size options
   @Input() inPageSizeOptions: number[];
-  */
-  columns: ColumnsITable[] = [
-    new ColumnsITable('id', 'ID', 'id'),
-    new ColumnsITable('firstname', 'First Name', 'firstname'),
-    new ColumnsITable('lastname', 'Last Name', 'lastname'),
-    new ColumnsITable('mlastname', 'm Last Name', 'mlastname'),
-    new ColumnsITable('email', 'Email', 'email'),
-  ];
 
-  displayedColumns: string[] = ['select', 'id', 'firstname', 'lastname', 'mlastname', 'email', 'actions'];
-  dataSource: UserDataSource;
-  selection = new SelectionModel<User>(true, []);
-  rowSelected: User = new User();
-  indexRow = 0;
-  totalRows = 0;
-  pageSize = 10;
-  pageSizeOptions = [10, 50, 100];
-
-
-
-  constructor(private http: HttpClient, private userSvc: UserService) { }
-
+  public dataSource: IDataSource;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
+  totalRows = 0;
+  selection = new SelectionModel<any>(true, []);
+  rowSelected: any;
+  displayedColumns: string[] = ['select', 'id', 'firstname', 'lastname', 'mlastname', 'email', 'actions'];
+  constructor(private http: HttpClient) { }
+
   ngOnInit() {
-    this.dataSource = new UserDataSource(this.http, this.userSvc);
-    // this.loadData(null);
+    this.dataSource = new IDataSource(this.http);
+    this.loadData(null);
+    console.log(this.inPageSizeOptions);
   }
 
   loadData(event: PageEvent) {
     let pageIndex = event && event.pageIndex ? event.pageIndex : 0;
-    this.pageSize = event && event.pageSize ? event.pageSize : this.pageSize;
-    pageIndex = pageIndex * this.pageSize;
+    const pageSize = event && event.pageSize ? event.pageSize : this.inPageSize;
+    pageIndex = pageIndex * pageSize;
 
-    this.dataSource.load(pageIndex, this.pageSize).subscribe(
+    const url = `${environment.getUrl(this.inServiceApi)}/${pageIndex}/${pageSize}`;
+    this.dataSource.load(url).subscribe(
       response => {
         if (response === undefined || response === null || response.Data === undefined || response === null) {
           return response;
         }
-
         this.totalRows = response.Data.Total;
+
+        // `http://localhost:8080/users/${pageIndex}/${pageSize}`
         response.Data.Rows.forEach(row => {
           this.selection.selected.forEach(rowSelected => {
             if (row.id === rowSelected.id) {
@@ -124,8 +113,9 @@ export class UsersComponent implements OnInit {
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+    return numSelected === numRows || numSelected > numRows;
   }
+
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   selectedToggle() {
     this.isAllSelected() ?
@@ -133,9 +123,6 @@ export class UsersComponent implements OnInit {
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
 }
-
-
-
 
 
 
